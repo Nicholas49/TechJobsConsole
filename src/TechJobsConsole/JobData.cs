@@ -48,14 +48,40 @@ namespace TechJobsConsole
             foreach (Dictionary<string, string> row in AllJobs)
             {
                 string aValue = row[column];
-
-                if (aValue.Contains(value))
+                if(CapCom(aValue, value))
                 {
                     jobs.Add(row);
                 }
             }
 
             return jobs;
+        }
+
+        public static List<Dictionary<string, string>> FindByValue(string value)
+        {
+            LoadData();
+
+            List<Dictionary<string, string>> jerbs = new List<Dictionary<string, string>>();
+
+            foreach (Dictionary<string, string> row in AllJobs)
+            {
+                foreach (KeyValuePair<string, string> attrib in row)
+                {
+                    if(CapCom(attrib.Value, value))
+                    {
+                        jerbs.Add(row);
+                    }
+                }
+            }
+
+            return jerbs;
+        }
+
+        public static bool CapCom(string aval, string val)
+        {
+            string upa = aval.ToUpper();
+            string upv = val.ToUpper();
+            return upa.Contains(upv);
         }
 
         /*
